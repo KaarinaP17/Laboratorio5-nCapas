@@ -67,6 +67,14 @@ jobs:
           echo "The app never responded on time"
           exit 1
 
+      - name: Debug Docker Logs
+        if: failure()
+        run: |
+          echo "--- LOGS DE LA APLICACIÓN ---"
+          docker compose logs app
+          echo "--- LOGS DE LA BASE DE DATOS ---"
+          docker compose logs db
+
       - name: Shutdown
         if: always()
         run: docker compose down -v
