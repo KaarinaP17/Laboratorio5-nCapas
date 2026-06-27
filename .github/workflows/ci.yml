@@ -6,14 +6,12 @@ on:
   pull_request:
     branches: ["main", "develop"]
 
-#cambios
-#cambios
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Laboratorio5/Ejercicio-Hyrule
+        working-directory: Laboratorio5-nCapas
     steps:
       - name: code-checkout
         uses: actions/checkout@v4
@@ -33,14 +31,14 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: test-results
-          path: Laboratorio5/Ejercicio-Hyrule/target/surefire-reports/
+          path: Laboratorio5-nCapas/target/surefire-reports/
 
   smoke-test-compose:
     needs: build-and-test
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Laboratorio5/Ejercicio-Hyrule
+        working-directory: Laboratorio5-nCapas
     steps:
       - name: code-checkout
         uses: actions/checkout@v4

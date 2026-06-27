@@ -21,8 +21,8 @@ jobs:
       - name: Build n push
         uses: docker/build-push-action@v6
         with:
-          context: Laboratorio5/Ejercicio-Hyrule
-          file: Laboratorio5/Ejercicio-Hyrule/Dockerfile
+          context: Laboratorio5-nCapas
+          file: Laboratorio5-nCapas/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/buhosapp:latest
