@@ -69,6 +69,6 @@ jobs:
         if: failure()
         run: docker compose logs
 
-      - name: Shutdown
+      - name: Shutdownx
         if: always()
         run: docker compose down -v
