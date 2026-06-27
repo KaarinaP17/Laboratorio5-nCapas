@@ -3,22 +3,21 @@ LABEL authors="Kaar"
 
 ENTRYPOINT ["top", "-b"]
 
-
 # ---------- Etapa 1: build ----------
-# Descarga una imagen del jdk 21 y a esta etapa la llama build
 FROM eclipse-temurin:21-jdk-alpine AS build
-# Dentro del contenedor crea una carpeta llamada app
 WORKDIR /app
 
-# Copiamos lo necesario para instalar las dependencias
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
-# Ejecuta el comando para instalar las dependencias
+
+# Damos permisos de ejecución antes de usarlo
+RUN chmod +x mvnw
+
+# Ahora esto debería funcionar sin problemas
 RUN ./mvnw dependency:go-offline -B
 
-# Copiamos el codigo fuente y se compila :D
+# Copiamos el resto del código y compilamos
 COPY src ./src
-# Nos saltamos los test ya que de eso se encarga CI :D
 RUN ./mvnw clean package -DskipTests -B
 
 # ---------- Etapa 2: runtime ----------
