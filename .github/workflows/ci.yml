@@ -21,7 +21,9 @@ jobs:
           cache: maven
 
       - name: Build + Tests
-        run: ./mvnw clean verify -B
+        run: |
+          chmod +x mvnw
+          ./mvnw clean verify -B
 
       - name: Publish test reports
         if: always()
@@ -65,10 +67,6 @@ jobs:
           echo "The app never responded on time"
           exit 1
 
-      - name: Show logs on failure
-        if: failure()
-        run: docker compose logs
-
-      - name: Shutdownx
+      - name: Shutdown
         if: always()
         run: docker compose down -v
